@@ -38,6 +38,7 @@ h1 {
 #input-new-todo {
     width: 350px;
     padding: 5px 10px;
+    margin-right: 5px;
 }
 
 #button-new-todo:hover {
