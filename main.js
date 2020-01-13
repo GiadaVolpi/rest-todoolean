@@ -16,8 +16,24 @@ $(document).ready (function () {
 
             creazioneTodo(nuovoTodo);
         }
-
     })
+
+    // intercetto il click sul cestino
+    $("#todo-list").on("click", ".remove", function() {
+        //recupero id dell'item da eliminare
+        var todo_id = $(this).parent().attr("data-id");
+        // chiamata ajax per cancellazione item
+        $.ajax ({
+            "url": "http://157.230.17.132:3024/todos/" + todo_id,
+            "method": "DELETE",
+            "success": function (data) {
+                stampaLista();
+            },
+            "error": function() {
+                alert ("Error");
+            }
+        });
+    });
 
 
 
@@ -29,7 +45,7 @@ $(document).ready (function () {
             "url": "http://157.230.17.132:3024/todos/",
             "method": "GET",
             "success": function (data) {
-                //resetto la lesta dei todo
+                //resetto la lista dei todo
                 $ ("#todo-list").empty();
 
                 var todos = data;

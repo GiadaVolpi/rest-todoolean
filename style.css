@@ -52,6 +52,7 @@ h1 {
 }
 
 .remove, .replace, .save {
+    cursor: pointer;
     padding-right: 10px;
 }
 
