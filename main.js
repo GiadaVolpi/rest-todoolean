@@ -50,21 +50,7 @@ $(document).ready (function () {
         // leggo il testo modificato dall'utente
         var todoModificato = $(this).parent().find(".edit-todo-input").val();
 
-        $.ajax ({
-            "url": urlApi + replace_todo_id,
-            "method": "PUT",
-            "data": {
-                "text": todoModificato
-            },
-            "success": function (data) {
-                stampaLista();
-            },
-            "error": function() {
-                alert ("Error");
-            }
-        });
-
-
+        modificaTodo(replace_todo_id, todoModificato)
     });
 
 
@@ -128,19 +114,22 @@ $(document).ready (function () {
         });
     }
 
-    // function modificaTodo(id) {
-    //     // chiamata ajax per cancellazione item
-    //     $.ajax ({
-    //         "url": urlApi + id,
-    //         "method": "GET",
-    //         "success": function (data) {
-    //             stampaLista();
-    //         },
-    //         "error": function() {
-    //             alert ("Error");
-    //         }
-    //     });
-    // }
+    function modificaTodo(id, testo_todo) {
+        // chiamata ajax per modifica item
+        $.ajax ({
+            "url": urlApi + id,
+            "method": "PUT",
+            "data": {
+                "text": testo_todo
+            },
+            "success": function (data) {
+                stampaLista();
+            },
+            "error": function() {
+                alert ("Error");
+            }
+        });
+    }
 
 
 })
