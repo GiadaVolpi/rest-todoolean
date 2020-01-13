@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Todoolean</title>
+        <!-- meta per media query -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- link Fontaweson -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+        <!-- link x jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Link Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Caveat|PT+Sans:400,700&display=swap" rel="stylesheet">
+        <!-- script Handlebars -->
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+        <!-- script x jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- script x file Javascript -->
+        <script src="main.js" charset="utf-8"></script>
+        <!-- link al foglio di stile -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Todo list</h1>
+            <div id="creation" class="clearfix">
+                <input id="input-new-todo" type="text" placeholder="Inserisci il testo...">
+                <button id="button-new-todo">Inserisci</button>
+            </div>
+
+            <ul id="todo-list"></ul>
+
+            <script id="template" type="text">
+                <li data-id="{{ todoId }}">
+                    <i class="remove far fa-trash-alt"></i>
+                    <i class="replace fas fa-pencil-alt"></i>
+                    <i class="save far fa-save"></i>
+                    <span class="todo-text">{{ todoText }}</span>
+                    <input class="edit-todo-input" type="text" value="{{ todoText }}">
+                </li>
+            </script>
+
+        </div>
+    </body>
+</html>
