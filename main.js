@@ -3,6 +3,8 @@ $(document).ready (function () {
     var template_html = $("#template").html();
     var template_function = Handlebars.compile(template_html);
 
+    var urlApi = "http://157.230.17.132:3024/todos/";
+
     stampaLista();
 
     //intercetto il click sul pulsante inserisci
@@ -21,11 +23,39 @@ $(document).ready (function () {
     // intercetto il click sul cestino
     $("#todo-list").on("click", ".remove", function() {
         //recupero id dell'item da eliminare
-        var todo_id = $(this).parent().attr("data-id");
-        // chiamata ajax per cancellazione item
+        var remove_todo_id = $(this).parent().attr("data-id");
+
+        cancellazioneTodo(remove_todo_id);
+    });
+
+    // intercetto il click sulla matita
+    $("#todo-list").on("click", ".replace", function() {
+        // nascondo il testo e visualizzo l'input
+        $(this).parent().find(".todo-text").addClass("hidden");
+        $(this).parent().find(".edit-todo-input").addClass("active");
+
+        // nascondo la matita e visualizzo il floppy
+        $(this).parent().find(".replace").addClass("hidden");
+        $(this).parent().find(".save").addClass("active");
+    });
+
+    // intercetto il click sul floppy
+    $("#todo-list").on("click", ".save", function() {
+        //recupero id dell'item da modificare
+        var replace_todo_id = $(this).parent().attr("data-id");
+
+        // recupero l'id
+        $(this).parent().attr("data-id");
+
+        // leggo il testo modificato dall'utente
+        var todoModificato = $(this).parent().find(".edit-todo-input").val();
+
         $.ajax ({
-            "url": "http://157.230.17.132:3024/todos/" + todo_id,
-            "method": "DELETE",
+            "url": urlApi + replace_todo_id,
+            "method": "PUT",
+            "data": {
+                "text": todoModificato
+            },
             "success": function (data) {
                 stampaLista();
             },
@@ -33,16 +63,17 @@ $(document).ready (function () {
                 alert ("Error");
             }
         });
-    });
 
+
+    });
 
 
     /* ------------------------ funzioni ------------------------ */
 
-    function stampaLista () {
+    function stampaLista() {
         // chiamata ajax in get per leggere le API
         $.ajax ({
-            "url": "http://157.230.17.132:3024/todos/",
+            "url": urlApi,
             "method": "GET",
             "success": function (data) {
                 //resetto la lista dei todo
@@ -66,10 +97,10 @@ $(document).ready (function () {
         });
     }
 
-    function creazioneTodo (newText) {
+    function creazioneTodo(newText) {
         //chiamata ajax in get per leggere le API
         $.ajax ({
-            "url": "http://157.230.17.132:3024/todos/",
+            "url": urlApi,
             "method": "POST",
             "data": {
                 "text": newText
@@ -82,6 +113,34 @@ $(document).ready (function () {
             }
         });
     }
+
+    function cancellazioneTodo(id) {
+        // chiamata ajax per cancellazione item
+        $.ajax ({
+            "url": urlApi + id,
+            "method": "DELETE",
+            "success": function (data) {
+                stampaLista();
+            },
+            "error": function() {
+                alert ("Error");
+            }
+        });
+    }
+
+    // function modificaTodo(id) {
+    //     // chiamata ajax per cancellazione item
+    //     $.ajax ({
+    //         "url": urlApi + id,
+    //         "method": "GET",
+    //         "success": function (data) {
+    //             stampaLista();
+    //         },
+    //         "error": function() {
+    //             alert ("Error");
+    //         }
+    //     });
+    // }
 
 
 })

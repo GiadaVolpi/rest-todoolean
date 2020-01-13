@@ -54,6 +54,11 @@ h1 {
 .remove, .replace, .save {
     cursor: pointer;
     padding-right: 10px;
+    font-size: 20px;
+}
+
+.replace.hidden {
+    display: none;
 }
 
 .save {
@@ -61,10 +66,19 @@ h1 {
 }
 
 .save.active {
-    display: visible;
+    display: inline-block;
+}
+
+.todo-text.hidden {
+    display: none;
 }
 
 .edit-todo-input {
     width: 350px;
     padding: 5px 10px;
+    display: none;
+}
+
+.edit-todo-input.active {
+    display: inline-block;
 }
